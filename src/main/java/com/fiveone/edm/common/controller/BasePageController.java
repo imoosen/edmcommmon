@@ -1,0 +1,38 @@
+package com.fiveone.edm.common.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fiveone.edm.common.utils.Page;
+
+/**
+ * 基础的分页Controller
+ * @company: 51jrq
+ * @author: lhw
+ * @time: 2016年12月30日 下午3:11:18
+ * @version: 1.0
+ * @since: JDK1.7
+ */
+public abstract class BasePageController extends BaseController{
+
+	//page分页工具类
+	protected Page page;
+	
+	//每页显示多少条
+	private final static int PAGESIZE = 5;
+
+	@Override
+	public void init(HttpServletRequest request, HttpServletResponse response,
+			ModelAndView mav) {
+		super.init(request, response, mav);
+		String pageNo = request.getParameter("pageNo");
+		int pageNo_ = 1;
+		if(pageNo != null && !("".equals(pageNo))) {
+			pageNo_ = Integer.parseInt(pageNo);
+		}
+		page = new Page(PAGESIZE, pageNo_);
+	}
+
+}

@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>edmcommon</groupId>
+  <artifactId>edmcommon</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>edmcommon</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <!-- 用于项目打包时跳过test -->
+  <build>
+	<defaultGoal>compile</defaultGoal>
+	<plugins>
+	<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+	<configuration>
+	<skip>true</skip>
+	</configuration>
+	</plugin>
+	</plugins>
+  </build>
+
+  <dependencies>
+  
+  	<!-- 引用edmdb项目 -->
+  	<dependency>
+      <groupId>edmdb</groupId>
+  	  <artifactId>edmdb</artifactId>
+  	  <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
+   	<!-- junit单元测试 -->
+    <dependency>
+      	<!-- 项目或者组织的唯一标志，并且配置时生成路径也是由此生成 -->  
+      	<groupId>junit</groupId>
+      	<!-- 项目的通用名称 --> 
+      	<artifactId>junit</artifactId>
+      	<!-- 项目的版本 -->
+      	<version>4.12</version>
+      	<!-- 表示开发的时候引入，发布的时候不会加载此包，其他的还有compile(缺省值)、provided、runtime、system -->
+      	<scope>test</scope>
+    </dependency>
+    
+    <!-- 
+    	支持servlet的jar包。应该叫servlet-api.jar
+		你如果编写过servlet就知道要用到HttpServletRequest和HttpServletResponse等对象，
+		这些对象都是要靠这个jar包才能使用的 
+	-->
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>javax.servlet-api</artifactId>
+    	<version>3.1.0</version>
+	</dependency>
+	
+	<!-- 
+		使用Java操作Redis需要jedis和commons-pool2两个jar包一起才行
+	-->
+	<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.9.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-pool2</artifactId>
+	    <version>2.2</version>
+	</dependency>
+	 <!-- net.sf.json-lib -->
+   	<dependency>
+		<groupId>net.sf.json-lib</groupId>
+		<artifactId>json-lib</artifactId>
+		<version>2.4</version>
+		<classifier>jdk15</classifier>
+	</dependency>
+	
+	
+  </dependencies>
+  
+</project>

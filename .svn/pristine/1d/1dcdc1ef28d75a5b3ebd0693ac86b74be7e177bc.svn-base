@@ -1,0 +1,534 @@
+package com.fiveone.edm.common.utils;
+
+import java.util.Arrays;
+import java.util.regex.Pattern;
+
+/**
+ * 字符串工具类
+ * @company: 51jrq
+ * @author: lhw
+ * @time: 2016年12月30日 下午2:13:51
+ * @version: 1.0
+ * @since: JDK1.7
+ */
+public class StringUtil {
+	
+	/**
+	 * 判断字符串是否为空
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(String str) {
+		  return str == null || str.trim().length() == 0;
+	}
+
+	/**
+	 * 字符转换成大写
+	 *
+	 * @param ch
+	 * @return
+	 * 2016-5-17
+	 */
+	public static char toUpperCase(char ch) {
+		int strCode = (int)ch;
+		if(strCode >= 97 && strCode <= 122) {
+			strCode -= 32;
+		}
+		return (char)strCode;
+	}
+	
+	/**
+	 * 字符串转换成大写
+	 *
+	 * @param str
+	 * @return
+	 * 2016-5-17
+	 */
+	public static String toUpperCase(String str) {
+		//toCharArray把字符串转化成字符
+		char[] chs = str.toCharArray();
+		for(int i=0; i<chs.length; i++) {
+			chs[i] = toUpperCase(chs[i]);
+		}
+		//字符数组转化成字符串
+		str = new String(chs);
+		return str;
+	}
+	
+	/**
+	 * 字符转换成小写
+	 *
+	 * @param ch
+	 * @return
+	 * 2016-5-17
+	 */
+	public static char toLowerCase(char ch) {
+		int chCode = (int)ch;
+		if(chCode >= 65 && chCode <= 90) {
+			chCode += 32;
+		}
+		return (char)chCode;
+	}
+	
+	/**
+	 * 字符串转换成小写
+	 * 
+	 * @param str
+	 * @return
+	 * 2016-5-17
+	 */
+	public static String toLowerCase(String str) {
+		//toCharArray把字符串转化成字符
+		char[] chs = str.toCharArray();
+		for(int i=0; i<chs.length; i++) {
+			chs[i] = toLowerCase(chs[i]);
+		}
+		//字符数组转化成字符串
+		str = new String(chs);
+		return str;
+	}
+	
+	/**
+	 * 验证邮件地址格式
+	 *
+	 * @param email
+	 * @return
+	 * 2016-5-17
+	 */
+	public static boolean checkEmail(String email) {
+		if(email == null || "".equals(email)) {
+			return false;
+		}
+		//运用正则表达式判断
+		boolean temp = email.matches("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+		return temp;
+	}
+	
+	/**
+	 * 统计字符在字符串中出现的次数与位置
+	 *
+	 * @param str
+	 * @param c
+	 * @return
+	 * 2016-5-18
+	 */
+	public static int[] getIndex(String str, char c) {
+		char[] chs = str.toCharArray();
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<chs.length; i++) {
+			if(chs[i] == c) {
+				sb.append(i);
+				sb.append(",");
+			}
+		}
+		String[] strs = sb.toString().split(",");
+		int[] result = new int[strs.length];
+		for(int i=0; i<result.length; i++) {
+			result[i] = Integer.parseInt(strs[i]);
+		}
+		return result;
+	}
+	
+	/**
+	 * 给字符串内容排序
+	 *
+	 * @param str
+	 * @return
+	 * 2016-5-18
+	 */
+	public static String sort(String str) {
+		char[] chs = str.toCharArray();
+		Arrays.sort(chs);
+		return String.valueOf(chs);
+	}
+	
+	/**
+	 * 逆转字符串
+	 *
+	 * @param str
+	 * @return
+	 * 2016-5-18
+	 */
+	public static String reverse(String str) {
+		char[] chs = str.toCharArray();
+		char[] result = new char[chs.length];
+		for(int i=chs.length-1; i>=0; i--) {
+			result[chs.length - 1 - i] = chs[i];
+		}
+		return String.valueOf(result);
+	}
+	
+	/**
+	 * 提取字符串中的字母，不区分大小写
+	 *
+	 * @param str
+	 * @return
+	 * 2016-5-18
+	 */
+	public static String extractLetter(String str) {
+		char[] chs = str.toCharArray();
+		StringBuffer sbStr = new StringBuffer();
+		for(int i=0; i<chs.length; i++) {
+			if((chs[i] >= 'a' && chs[i] <= 'z') || 
+			   (chs[i] >= 'A' && chs[i] <= 'Z')) {
+				sbStr.append(chs[i]);
+			}
+		}
+		return sbStr.toString();
+	}
+	
+	/**
+	 * 提取字符串中的数字
+	 *
+	 * @param str
+	 * @return
+	 * 2016-5-18
+	 */
+	public static String extractNumber(String str) {
+		char[] chs = str.toCharArray();
+		StringBuffer sbNum = new StringBuffer();
+		for(int i=0; i<chs.length; i++) {
+			if(chs[i] >= '0' && chs[i] <= '9') {
+				sbNum.append(chs[i]);
+			}
+		}
+		return sbNum.toString();
+	}
+	
+	/**
+	 * 判断字符是否是数字字符  boolean
+	 *
+	 * @param ch
+	 * @return
+	 * 2016-5-18
+	 */
+	public static boolean checkNum(char ch) {
+/*		if(ch >= '0' && ch <= '9') {
+			return true;
+		}else {
+			return false;
+		}*/
+		return Character.isDigit(ch);
+	}
+	
+	/**
+	 * 判断一个字符串是否是数字，有三种方式：
+	 * 1、isNum(String s),通过java提供的Character.isDigit()方法进行判断，当发现一个非数字的字符时，返回false。
+	 * 2、isNumByRegex(String s),通过正则表达式判断一个字符串是否由数字组成。
+	 * 3、isNumByAscii(String s),通过查看字符的ACSII码是否在48-57之间，判断是否为数字。
+	 */
+	/**
+	 * @param s1
+	 * @return
+	 */
+	public static boolean isNum(String s1) {
+		
+		for(int i=0; i<s1.length(); i++){
+			
+			if(!Character.isDigit(s1.charAt(i))){	//通过java函数判断是否是数字
+				
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * @param s2
+	 * @return
+	 */
+	public static boolean isNumByRegex(String s2) {
+		
+		Pattern p = Pattern.compile("[0-9]*");	//编译正则表达式
+		
+		return p.matcher(s2).matches();
+	}
+	
+	/**
+	 * @param s2
+	 * @return
+	 */
+	public static boolean isNumByAscii(String s3) {
+		
+		for(int i=0; i<s3.length(); i++){
+			
+			int c = s3.charAt(i);
+			
+			if(c<48 || c>57){	//判断字符c是否在48-57之间
+				
+				return false;
+			}
+		}
+		return true;
+		
+	}
+	
+	/**
+	 * 将一个字符串数字转换为整型数组
+	 * @param s4
+	 * @return
+	 */
+	public static int[] convertedArray(String[] s4) {	//将一个字符串数字转换为整型数组
+		
+		if(s4 == null){
+			return new int[0];
+		}
+		
+		int [] ia = new int[s4.length];
+		
+		for(int i=0; i<s4.length; i++){
+			
+			ia[i] = converInt(s4[i]);
+		}
+		return ia;
+	}
+
+	/**
+	 * 将一个字符串数字转换为浮点型
+	 * @param s3
+	 * @return
+	 */
+	public static Double converDouble(String s3) {
+		
+		try{
+			return Double.parseDouble(s3);
+			
+		}catch(NumberFormatException e){
+			
+			e.printStackTrace();
+			
+			return 0.0d;
+		}
+	}
+
+	/**
+	 * 将一个字符串数字转换为长整型
+	 * @param s2
+	 * @return
+	 */
+	public static Long converLong(String s2) {
+		
+		try{
+			return Long.parseLong(s2);
+			
+		}catch(NumberFormatException e){
+			
+			e.printStackTrace();
+			
+			return 0L;
+		}
+	}
+
+	/**
+	 * 将一个字符串数字转换为整型
+	 * @param s1
+	 * @return
+	 */
+	public static int converInt(String s1) {
+		
+		try{
+			return Integer.parseInt(s1);
+			
+		}catch(NumberFormatException e){
+			
+			e.printStackTrace();
+			
+			return 0;
+		}
+	}
+	
+	/**
+	 * 获取随机号码
+	 *
+	 * @param length
+	 * @return
+	 * 2016-5-19
+	 */
+	public static String getRandom(int length) {
+		char[] chs = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<length; i++) {
+			int index = (int)(Math.random() * 62);
+			sb.append(chs[index]);
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * null转空串
+	 *
+	 * @param str
+	 * @return
+	 * 2016-9-9
+	 */
+	public static String toSpace(String str) {
+		if(str == null) {
+			return "";
+		}
+		return str;
+	}
+	
+	/**
+	 * 获取key在str中出现的次数
+	 * @param str
+	 * @param key
+	 * @return
+	 */
+	public static int getKeyCount(String str, String key) {
+		//1.定义变量，记录每一次找到的key的位置
+		int index = 0;
+		//2.定义变量，记录出现的次数
+		int count = 0;
+		//3.定义循环。只要索引到的位置不是-1，就继续查找
+		while((index = str.indexOf(key, index)) != -1){
+			
+			//每循环一次，就要明确下一次查找的起始位置
+			index += key.length();
+			
+			//每查找到一次，count自增
+			count++;
+		}
+		return count;
+	}
+	
+	/**
+	 * 字符串数组 从小到大排序
+	 * 思路：
+	 * 1.曾经玩过 int []排序，选择、冒泡
+	 * 2.字符串排序同理
+	 * 3.for嵌套循环
+	 * 4.循环中进行元素的大小比较，满足条件位置置换
+	 * */
+	public static void sortString(String []strs){
+		for(int i=0; i<strs.length-1; i++){
+			for(int j=i+1; j<strs.length; j++){
+				if(strs[i].compareTo(strs[j]) > 0){	//对象比较用方法 compareTo
+					swap(strs,i,j);
+				}
+			}
+		}
+		//Arrays.sort(strs);
+	}
+	
+	/**
+	 * 获取两个字符串的最大相同子串
+	 * "swdefrgthitcastghj"
+	 * "qweritcastgjgb"
+	 * 
+	 * 思路：
+	 * 1.先明确两个字符串的长短，在长串中判断短串是否存在。
+	 * 2.存在，已找到。说明短串就是最大相同的
+	 * 	 不存在，就将短串按照长度递减的方式获取短串中子串并到长串中判断
+	 * 
+	 * */
+	public static String getMaxSubString(String s1, String s2) {
+		String max,min;
+		max = (s1.length() > s2.length())?s1:s2;		
+		min = max.equals(s1)?s2:s1;
+		
+		//验证max和min
+		//System.out.println("max = " + max);
+		//System.out.println("min = " + min);
+		
+		//通过分析，发现是for嵌套循环
+		for(int i=0; i<min.length(); i++){
+			for(int start=0,end=min.length()-i; end<=min.length(); start++,end++){
+				//根据start，end 来截取字符串
+				String temp = min.substring(start, end);
+				if(max.contains(temp)){
+					return temp;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * String类的trim();忽略前导和尾部空白
+	 * 1.写代码演示该方法的使用。demo
+	 * 2.trim什么时候用？
+	 * 		用户名、文本框输入，获取用户文本时。
+	 * 3.模拟一个功能一样的方法。参考源码
+	 * */
+	//模拟trim功能
+	public static String myTrim(String str){
+			
+		//定义两个变量 一个记录头的位置，一个记录尾的位置
+		int start = 0;
+		int end = str.length()-1;
+			
+		//2.获取头部非空白位置
+		while(start <= end && str.charAt(start) == ' '){
+			start++;
+		}
+			
+		//3.获取尾部非空白位置
+		while(start <= end && str.charAt(end) == ' '){
+			end--;
+		}
+			
+		//4.根据获取头和尾非空格的位置，截取字符串
+		return str.substring(start, end+1);
+	}
+	
+	/**
+	 * 对字符串中字符进行自然顺序排序
+	 * 
+	 * "cfdasbv"——>"abcdfsv"
+	 * 
+	 * 思路：
+	 * 1.排序我熟，但都是针对数组排序
+	 * 2.数组中的元素在哪里呢？在字符串中，好吧，把字符串转成数组
+	 * 3.对数组排序
+	 * 4.将排序后数组转成字符串
+	 * 
+	 * */
+	public static String sortStringByChar(String str) {
+		
+		//1.将字符串转成字符数组。
+		char []chs = getChar(str);
+		//2.对数组排序
+		sort(chs);
+		//3.将排序后的数组转成字符串		
+		return new String(chs);
+	}
+
+	/**
+	 * 对数组进行排序
+	 */
+	public static void sort(char[] chs) {
+		Arrays.sort(chs);
+	}
+
+	/**
+	 * 将字符串转换成数组
+	 * 
+	 * 把常见对象的方法都封装起来，自定义一个自己熟悉的方法
+	 * */
+	public static char[] getChar(String str) {
+		return str.toCharArray();
+	}
+	
+	/*
+	 * 数组元素位置置换
+	 * */
+	private static void swap(String[] strs,int a,int b){
+		String temp = strs[a];
+		strs[a] = strs[b];
+		strs[b] = temp;
+	}
+	
+	/*
+	 * 打印字符串数组
+	 * */
+	public static void printArray(String []strs){
+		for(int i=0; i<strs.length; i++){
+			System.out.print(strs[i] + "  ");
+		}
+		System.out.println();
+	}
+	
+	/*public static void main(String[] args) {
+		System.out.println(checkEmail("455951160@qq.com"));
+	}*/
+}
